@@ -1,0 +1,1045 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AdminReplicService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" />
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/ReplicControl.AdminDataContract" />
+      <xs:element name="Login">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="passwordHash" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LoginResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="LoginResult" nillable="true" type="q1:LoginAccountData" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetReplicsInfo">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="dateFrom" type="xs:dateTime" />
+            <xs:element minOccurs="0" name="dateTo" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetReplicsInfoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="GetReplicsInfoResult" nillable="true" type="q2:ArrayOfReplicInfoDataContract" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetReplicData">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="replicId" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetReplicDataResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetReplicDataResult" nillable="true" type="xs:base64Binary" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetReplicsInfoByObjects">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="objectIds" nillable="true" type="q3:ArrayOflong" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetReplicsInfoByObjectsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="GetReplicsInfoByObjectsResult" nillable="true" type="q4:ArrayOfReplicInfoDataContract" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetIterationInfoById">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetIterationInfoByIdResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="GetIterationInfoByIdResult" nillable="true" type="q5:IterationDataContract" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetIssueSummary">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="issueId" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetIssueSummaryResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetIssueSummaryResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAllUsers">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAllUsersResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/ReplicControl.AdminDataContract" minOccurs="0" name="GetAllUsersResult" nillable="true" type="q6:ArrayOfUserInfoContract" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateUsers">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ReplicControl.AdminDataContract" minOccurs="0" name="users" nillable="true" type="q7:ArrayOfUserInfoContract" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateUsersResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UpdateUsersResult" nillable="true" type="q8:ArrayOflong" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LoginExists">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="login" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LoginExistsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="LoginExistsResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAllObjects">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAllObjectsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/ReplicControl.AdminDataContract" minOccurs="0" name="GetAllObjectsResult" nillable="true" type="q9:ArrayOfObjectDataContract" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCentralReplicInfo">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCentralReplicInfoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="GetCentralReplicInfoResult" nillable="true" type="q10:ReplicInfoDataContract" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateMainDbToVersion">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="replicId" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateMainDbToVersionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="UpdateMainDbToVersionResult" nillable="true" type="q11:OperationResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateMainDbToLatestVersion">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateMainDbToLatestVersionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="UpdateMainDbToLatestVersionResult" nillable="true" type="q12:OperationResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="IsMainDbHasLatestVersion">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="IsMainDbHasLatestVersionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="IsMainDbHasLatestVersionResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CreateFullReplic">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userId" type="xs:long" />
+            <xs:element minOccurs="0" name="comment" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CreateFullReplicResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="CreateFullReplicResult" nillable="true" type="q13:OperationResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAllIterations">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAllIterationsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="GetAllIterationsResult" nillable="true" type="q14:ArrayOfIterationDataContract" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateIterationName">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="iterationId" type="xs:long" />
+            <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateIterationNameResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="UpdateIterationNameResult" nillable="true" type="q15:OperationResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="BeginNewIteration">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userId" type="xs:long" />
+            <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="iterationInfo" nillable="true" type="q16:IterationDataContract" />
+            <xs:element minOccurs="0" name="fullReplicName" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="BeginNewIterationResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="BeginNewIterationResult" nillable="true" type="q17:OperationResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetFullReplic">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetFullReplicResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="GetFullReplicResult" nillable="true" type="q18:OperationResultOfbase64Binary" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetPartialReplic">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="objectIds" nillable="true" type="q19:ArrayOflong" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetPartialReplicResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetPartialReplicResult" nillable="true" type="xs:base64Binary" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetIssueTrackerUserName">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetIssueTrackerUserNameResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetIssueTrackerUserNameResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SaveInitialFullReplic">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="data" nillable="true" type="xs:base64Binary" />
+            <xs:element minOccurs="0" name="userId" type="xs:long" />
+            <xs:element minOccurs="0" name="platformVersion" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SaveInitialFullReplicResponse">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="IsInitialFullReplicExists">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="IsInitialFullReplicExistsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="IsInitialFullReplicExistsResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeleteObjects">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userId" type="xs:long" />
+            <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="objectIds" nillable="true" type="q20:ArrayOflong" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeleteObjectsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" minOccurs="0" name="DeleteObjectsResult" nillable="true" type="q21:OperationResultOfArrayOflonguHEDJ7Dj" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ChangeObjectsMarking">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="objectIds" nillable="true" type="q22:ArrayOflong" />
+            <xs:element minOccurs="0" name="marked" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ChangeObjectsMarkingResponse">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xs:complexType name="LoginAccountData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Deleted" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ID" type="xs:long" />
+          <xs:element minOccurs="0" name="ReplicId" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="SpreadCoefficient" type="xs:int" />
+          <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UserType" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="LoginAccountData" nillable="true" type="tns:LoginAccountData" />
+      <xs:complexType name="ArrayOfReplicInfoDataContract">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ReplicInfoDataContract" nillable="true" type="tns:ReplicInfoDataContract" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfReplicInfoDataContract" nillable="true" type="tns:ArrayOfReplicInfoDataContract" />
+      <xs:complexType name="ReplicInfoDataContract">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DateLoaded" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="ID" type="xs:long" />
+          <xs:element minOccurs="0" name="IsFull" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IterationId" type="xs:long" />
+          <xs:element minOccurs="0" name="IterationName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IterationNumber" type="xs:long" />
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="LockedObjectIds" nillable="true" type="q1:ArrayOflong" />
+          <xs:element minOccurs="0" name="PlatformVersion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PrevReplicID" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="PrevReplicIterationNumber" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="PrevReplicVersion" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="UserId" type="xs:long" />
+          <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Version" type="xs:long" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ReplicInfoDataContract" nillable="true" type="tns:ReplicInfoDataContract" />
+      <xs:complexType name="IterationDataContract">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="FieldsIdentifiersStep" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="ID" type="xs:long" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NeedSpreadIdentifiers" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Number" type="xs:long" />
+          <xs:element minOccurs="0" name="ObjectsIdentifiersStep" nillable="true" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="IterationDataContract" nillable="true" type="tns:IterationDataContract" />
+      <xs:complexType name="OperationResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CancelationReasons" nillable="true" type="tns:ArrayOfOperationResult.Cancelation" />
+          <xs:element minOccurs="0" name="Canceled" type="xs:boolean" />
+          <xs:element minOccurs="0" name="CommonCancelationReason" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UpdateStatus" type="tns:UpdateStatus" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="OperationResult" nillable="true" type="tns:OperationResult" />
+      <xs:complexType name="ArrayOfOperationResult.Cancelation">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationResult.Cancelation" nillable="true" type="tns:OperationResult.Cancelation" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfOperationResult.Cancelation" nillable="true" type="tns:ArrayOfOperationResult.Cancelation" />
+      <xs:complexType name="OperationResult.Cancelation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CancelationReason" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CanceledPluginName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="OperationResult.Cancelation" nillable="true" type="tns:OperationResult.Cancelation" />
+      <xs:simpleType name="UpdateStatus">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="None" />
+          <xs:enumeration value="Success" />
+          <xs:enumeration value="Failed" />
+          <xs:enumeration value="Busy" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="UpdateStatus" nillable="true" type="tns:UpdateStatus" />
+      <xs:complexType name="ArrayOfIterationDataContract">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="IterationDataContract" nillable="true" type="tns:IterationDataContract" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfIterationDataContract" nillable="true" type="tns:ArrayOfIterationDataContract" />
+      <xs:complexType name="OperationResultOfbase64Binary">
+        <xs:annotation>
+          <xs:appinfo>
+            <GenericType Name="OperationResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="base64Binary" Namespace="http://www.w3.org/2001/XMLSchema" />
+            </GenericType>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:OperationResult">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Result" nillable="true" type="xs:base64Binary" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="OperationResultOfbase64Binary" nillable="true" type="tns:OperationResultOfbase64Binary" />
+      <xs:complexType name="OperationResultOfArrayOflonguHEDJ7Dj">
+        <xs:annotation>
+          <xs:appinfo>
+            <GenericType Name="OperationResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/ReplicControl.Common.CommonContracts" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="ArrayOflong" Namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+            </GenericType>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:OperationResult">
+            <xs:sequence>
+              <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Result" nillable="true" type="q2:ArrayOflong" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="OperationResultOfArrayOflonguHEDJ7Dj" nillable="true" type="tns:OperationResultOfArrayOflonguHEDJ7Dj" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOflong">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOflong" nillable="true" type="tns:ArrayOflong" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ReplicControl.AdminDataContract" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ReplicControl.AdminDataContract" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfUserInfoContract">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInfoContract" nillable="true" type="tns:UserInfoContract" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfUserInfoContract" nillable="true" type="tns:ArrayOfUserInfoContract" />
+      <xs:complexType name="UserInfoContract">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Deleted" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ID" type="xs:long" />
+          <xs:element minOccurs="0" name="IssueTrackerUserId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PasswordChanged" type="xs:boolean" />
+          <xs:element minOccurs="0" name="PasswordHash" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SpreadCoefficient" type="xs:int" />
+          <xs:element minOccurs="0" name="UserType" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UserInfoContract" nillable="true" type="tns:UserInfoContract" />
+      <xs:complexType name="ArrayOfObjectDataContract">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ObjectDataContract" nillable="true" type="tns:ObjectDataContract" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfObjectDataContract" nillable="true" type="tns:ArrayOfObjectDataContract" />
+      <xs:complexType name="ObjectDataContract">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Caption" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Deleted" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ID" type="xs:long" />
+          <xs:element minOccurs="0" name="Marked" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ObjectDataContract" nillable="true" type="tns:ObjectDataContract" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IAdminReplicService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetReplicsInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReplicsInfo" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetReplicsInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReplicsInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetReplicData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReplicData" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetReplicData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReplicDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetReplicsInfoByObjects_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReplicsInfoByObjects" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetReplicsInfoByObjects_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReplicsInfoByObjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetIterationInfoById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIterationInfoById" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetIterationInfoById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIterationInfoByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetIssueSummary_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIssueSummary" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetIssueSummary_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIssueSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetAllUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsers" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetAllUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_UpdateUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUsers" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_UpdateUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_LoginExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:LoginExists" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_LoginExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetAllObjects_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllObjects" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetAllObjects_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllObjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetCentralReplicInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCentralReplicInfo" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetCentralReplicInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCentralReplicInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_UpdateMainDbToVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMainDbToVersion" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_UpdateMainDbToVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMainDbToVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_UpdateMainDbToLatestVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMainDbToLatestVersion" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_UpdateMainDbToLatestVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMainDbToLatestVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_IsMainDbHasLatestVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsMainDbHasLatestVersion" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_IsMainDbHasLatestVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsMainDbHasLatestVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_CreateFullReplic_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateFullReplic" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_CreateFullReplic_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateFullReplicResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetAllIterations_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllIterations" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetAllIterations_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllIterationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_UpdateIterationName_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateIterationName" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_UpdateIterationName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateIterationNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_BeginNewIteration_InputMessage">
+    <wsdl:part name="parameters" element="tns:BeginNewIteration" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_BeginNewIteration_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BeginNewIterationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetFullReplic_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFullReplic" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetFullReplic_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFullReplicResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetPartialReplic_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPartialReplic" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetPartialReplic_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPartialReplicResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetIssueTrackerUserName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIssueTrackerUserName" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_GetIssueTrackerUserName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIssueTrackerUserNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_SaveInitialFullReplic_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveInitialFullReplic" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_SaveInitialFullReplic_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveInitialFullReplicResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_IsInitialFullReplicExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsInitialFullReplicExists" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_IsInitialFullReplicExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsInitialFullReplicExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_DeleteObjects_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteObjects" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_DeleteObjects_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteObjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_ChangeObjectsMarking_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeObjectsMarking" />
+  </wsdl:message>
+  <wsdl:message name="IAdminReplicService_ChangeObjectsMarking_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeObjectsMarkingResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAdminReplicService">
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseService/Login" message="tns:IAdminReplicService_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseService/LoginResponse" message="tns:IAdminReplicService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReplicsInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseService/GetReplicsInfo" message="tns:IAdminReplicService_GetReplicsInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseService/GetReplicsInfoResponse" message="tns:IAdminReplicService_GetReplicsInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReplicData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseService/GetReplicData" message="tns:IAdminReplicService_GetReplicData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseService/GetReplicDataResponse" message="tns:IAdminReplicService_GetReplicData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReplicsInfoByObjects">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseService/GetReplicsInfoByObjects" message="tns:IAdminReplicService_GetReplicsInfoByObjects_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseService/GetReplicsInfoByObjectsResponse" message="tns:IAdminReplicService_GetReplicsInfoByObjects_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIterationInfoById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseService/GetIterationInfoById" message="tns:IAdminReplicService_GetIterationInfoById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseService/GetIterationInfoByIdResponse" message="tns:IAdminReplicService_GetIterationInfoById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIssueSummary">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseService/GetIssueSummary" message="tns:IAdminReplicService_GetIssueSummary_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseService/GetIssueSummaryResponse" message="tns:IAdminReplicService_GetIssueSummary_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/GetAllUsers" message="tns:IAdminReplicService_GetAllUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/GetAllUsersResponse" message="tns:IAdminReplicService_GetAllUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/UpdateUsers" message="tns:IAdminReplicService_UpdateUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/UpdateUsersResponse" message="tns:IAdminReplicService_UpdateUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/LoginExists" message="tns:IAdminReplicService_LoginExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/LoginExistsResponse" message="tns:IAdminReplicService_LoginExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllObjects">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/GetAllObjects" message="tns:IAdminReplicService_GetAllObjects_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/GetAllObjectsResponse" message="tns:IAdminReplicService_GetAllObjects_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCentralReplicInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/GetCentralReplicInfo" message="tns:IAdminReplicService_GetCentralReplicInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/GetCentralReplicInfoResponse" message="tns:IAdminReplicService_GetCentralReplicInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMainDbToVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/UpdateMainDbToVersion" message="tns:IAdminReplicService_UpdateMainDbToVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/UpdateMainDbToVersionResponse" message="tns:IAdminReplicService_UpdateMainDbToVersion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMainDbToLatestVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/UpdateMainDbToLatestVersion" message="tns:IAdminReplicService_UpdateMainDbToLatestVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/UpdateMainDbToLatestVersionResponse" message="tns:IAdminReplicService_UpdateMainDbToLatestVersion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsMainDbHasLatestVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/IsMainDbHasLatestVersion" message="tns:IAdminReplicService_IsMainDbHasLatestVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/IsMainDbHasLatestVersionResponse" message="tns:IAdminReplicService_IsMainDbHasLatestVersion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateFullReplic">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/CreateFullReplic" message="tns:IAdminReplicService_CreateFullReplic_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/CreateFullReplicResponse" message="tns:IAdminReplicService_CreateFullReplic_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIterations">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/GetAllIterations" message="tns:IAdminReplicService_GetAllIterations_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/GetAllIterationsResponse" message="tns:IAdminReplicService_GetAllIterations_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateIterationName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/UpdateIterationName" message="tns:IAdminReplicService_UpdateIterationName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/UpdateIterationNameResponse" message="tns:IAdminReplicService_UpdateIterationName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BeginNewIteration">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/BeginNewIteration" message="tns:IAdminReplicService_BeginNewIteration_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/BeginNewIterationResponse" message="tns:IAdminReplicService_BeginNewIteration_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFullReplic">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/GetFullReplic" message="tns:IAdminReplicService_GetFullReplic_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/GetFullReplicResponse" message="tns:IAdminReplicService_GetFullReplic_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPartialReplic">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/GetPartialReplic" message="tns:IAdminReplicService_GetPartialReplic_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/GetPartialReplicResponse" message="tns:IAdminReplicService_GetPartialReplic_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIssueTrackerUserName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/GetIssueTrackerUserName" message="tns:IAdminReplicService_GetIssueTrackerUserName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/GetIssueTrackerUserNameResponse" message="tns:IAdminReplicService_GetIssueTrackerUserName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveInitialFullReplic">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/SaveInitialFullReplic" message="tns:IAdminReplicService_SaveInitialFullReplic_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/SaveInitialFullReplicResponse" message="tns:IAdminReplicService_SaveInitialFullReplic_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsInitialFullReplicExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/IsInitialFullReplicExists" message="tns:IAdminReplicService_IsInitialFullReplicExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/IsInitialFullReplicExistsResponse" message="tns:IAdminReplicService_IsInitialFullReplicExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteObjects">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/DeleteObjects" message="tns:IAdminReplicService_DeleteObjects_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/DeleteObjectsResponse" message="tns:IAdminReplicService_DeleteObjects_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeObjectsMarking">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminReplicService/ChangeObjectsMarking" message="tns:IAdminReplicService_ChangeObjectsMarking_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminReplicService/ChangeObjectsMarkingResponse" message="tns:IAdminReplicService_ChangeObjectsMarking_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IAdminReplicService" type="tns:IAdminReplicService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/IBaseService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReplicsInfo">
+      <soap:operation soapAction="http://tempuri.org/IBaseService/GetReplicsInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReplicData">
+      <soap:operation soapAction="http://tempuri.org/IBaseService/GetReplicData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReplicsInfoByObjects">
+      <soap:operation soapAction="http://tempuri.org/IBaseService/GetReplicsInfoByObjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIterationInfoById">
+      <soap:operation soapAction="http://tempuri.org/IBaseService/GetIterationInfoById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIssueSummary">
+      <soap:operation soapAction="http://tempuri.org/IBaseService/GetIssueSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/GetAllUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsers">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/UpdateUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginExists">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/LoginExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllObjects">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/GetAllObjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCentralReplicInfo">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/GetCentralReplicInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMainDbToVersion">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/UpdateMainDbToVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMainDbToLatestVersion">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/UpdateMainDbToLatestVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsMainDbHasLatestVersion">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/IsMainDbHasLatestVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFullReplic">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/CreateFullReplic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllIterations">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/GetAllIterations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateIterationName">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/UpdateIterationName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BeginNewIteration">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/BeginNewIteration" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFullReplic">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/GetFullReplic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPartialReplic">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/GetPartialReplic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIssueTrackerUserName">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/GetIssueTrackerUserName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveInitialFullReplic">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/SaveInitialFullReplic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsInitialFullReplicExists">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/IsInitialFullReplicExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteObjects">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/DeleteObjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeObjectsMarking">
+      <soap:operation soapAction="http://tempuri.org/IAdminReplicService/ChangeObjectsMarking" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AdminReplicService">
+    <wsdl:port name="BasicHttpBinding_IAdminReplicService" binding="tns:BasicHttpBinding_IAdminReplicService">
+      <soap:address location="http://localhost:3042/AdminReplicService_Project2" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
