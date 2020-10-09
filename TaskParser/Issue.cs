@@ -1,14 +1,17 @@
 ﻿using Atlassian.Jira;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace TaskParser
 {
+    [DebuggerDisplay("{Key}, {Label}")]
     internal class ParserIssue : IComparable
     {
         public string Key { get; set; }
         public string Summary { get; set; }
         public IssueStatus Status { get; set; }
+        public string Label { get; set; }
         public Issue Parent { get; set; }
         public IssuePriority Priority { get; set; }
         public ProjectVersionCollection FixVersions { get; set; }

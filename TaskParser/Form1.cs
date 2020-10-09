@@ -74,32 +74,46 @@ namespace TaskParser
 
         private List<string> GetTaskCaptionList(List<Issue> issueList)
         {
-            List<string> result = new List<string>();
-            if (issueList.Count == 0) return result;
+            var result = new List<string>();
+            if (issueList.Count == 0)
+               return result;
 
             var tmpIssueList = issueList.Select(n => new ParserIssue
-            {
-                Key = n.Key.ToString(),
-                Summary = n.Summary,
-                Status = n.Status,
-                Priority = n.Priority,
-                Parent = n,
-                AsHtml = checkBox_asHtml.Checked,
-                NeedShowPriority = checkBox_NeedShowPriority.Checked,
-                FixVersions = checkBox_FIxVersion.Checked ? n.FixVersions : null
-            })
-            .GroupBy(n => n.Status.Name == "Resolved" || n.Status.Name == "Решено" || n.Status.Name == "Closed" || n.Status.Name == "Закрыто", n => n)
-            .OrderBy(n => n.Key);
+                {
+                    Key = n.Key.ToString(),
+                    Summary = n.Summary,
+                    Status = n.Status,
+                    Label = string.Join(", ", n.Labels),
+                    Priority = n.Priority,
+                    Parent = n,
+                    AsHtml = checkBox_asHtml.Checked,
+                    NeedShowPriority = checkBox_NeedShowPriority.Checked,
+                    FixVersions = checkBox_FIxVersion.Checked ? n.FixVersions : null
+                })
+                .GroupBy(n => n.Status.Name == "Resolved" || n.Status.Name == "Решено" || n.Status.Name == "Closed" ||
+                              n.Status.Name == "Закрыто", n => n)
+                .OrderBy(n => n.Key);
 
-            foreach (var tasklist in tmpIssueList)
+            foreach (IGrouping<bool, ParserIssue> tasklist in tmpIssueList)
             {
                 if (tasklist.Key)
-                    result.Add(string.Format("{0}Resolved:", Environment.NewLine));
+                    result.Add($"{Environment.NewLine}Resolved:");
                 else
-                    result.Add(string.Format("{0}Not resolved:", Environment.NewLine));
+                    result.Add($"{Environment.NewLine}Not resolved:");
 
-                foreach (var task in tasklist.OrderBy(n => n.Key))
-                    result.Add(task.ToString());
+                var groupByLabel = tasklist.GroupBy(x => x.Label)
+                   .OrderBy(x => string.IsNullOrWhiteSpace(x.Key))
+                   .ThenBy(x => x.Key.Equals("GENERIC", StringComparison.OrdinalIgnoreCase))
+                   .ThenBy(x => x.Key);
+
+                foreach (IGrouping<string, ParserIssue> task in groupByLabel)
+                {
+                   string label = string.IsNullOrWhiteSpace(task.Key) ? "None" : task.Key;
+                   result.Add($"{label}:");
+
+                   foreach (ParserIssue line in task.OrderBy(x => x.Key))
+                      result.Add($"\t{line}");
+                }
             }
 
             return result;
@@ -107,16 +121,16 @@ namespace TaskParser
 
         private List<ReplicationInfo> GetUriList()
         {
-            List<ReplicationInfo> result = new List<ReplicationInfo>();
+            var result = new List<ReplicationInfo>();
 
-            EleedServiceFactory service = new EleedServiceFactory(loginTextBox.Text, passwordTextBox.Text);
+            var service = new EleedServiceFactory(loginTextBox.Text, passwordTextBox.Text);
             var client = service.Create();
 
             var replicList = client.GetReplicsInfo(beginDateTimePicker.Value, endDateTimePicker.Value);
 
             foreach (var replic in replicList)
             {
-                ReplicationInfo info = new ReplicationInfo();
+                var info = new ReplicationInfo();
                 info.Creator = replic.UserName;
 
                 string[] taskList = replic.Comment.Split(',');
