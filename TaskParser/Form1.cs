@@ -10,6 +10,11 @@ namespace TaskParser
 {
     public partial class Form1 : Form
     {
+        public bool IgnoreClosed
+        {
+            get { return checkBox_IgnoreClosed.Checked; }
+		  }
+
         public Form1()
         {
             InitializeComponent();
@@ -56,7 +61,12 @@ namespace TaskParser
                     try
                     {
                         var issue = quearable.FirstOrDefault(n => n.Key == task);
-                        if (issue == null || (resolvedCheckBox.Checked && !(issue.Status.Name == "Resolved" || issue.Status.Name == "Решено"))) continue;
+                        if (issue == null) continue;
+                        
+                        if (resolvedCheckBox.Checked && !(issue.Status.Name == "Resolved" || issue.Status.Name == "Решено")) continue;
+                        
+                        if (this.IgnoreClosed && (issue.Status.Name.ToLower() == "closed" || issue.Status.Name.ToLower() == "закрыто")) continue;
+                        
                         if (result.Any(n => n.Key.Equals(issue.Key)) == false)
                             result.Add(issue);
                     }
